@@ -9,12 +9,17 @@ PORT=${PORT:-1500}
 HTTP_START="HTTP/1.1"
 HTTP_GOOD="200 OK"
 HTTP_BAD="500 Internal Error"
-NETCAT_PACKAGE='netcat-openbsd'
+NETCAT_PACKAGE='netcat'
+
+echo "Initializing Komorebi..."
 
 if which apt-get &>/dev/null; then
     if ! dpkg -s $NETCAT_PACKAGE &>/dev/null; then
-        echo "Installing '$NETCAT_PACKAGE'"
-        apt-get -y install $NETCAT_PACKAGE
+        echo "Could not find the 'netcat' utility; trying to install..."
+        echo "First, updating apt repositories"
+        apt-get update &>/dev/null
+        echo "Now, installing '$NETCAT_PACKAGE'"
+        apt-get -y install $NETCAT_PACKAGE &>/dev/null
     fi
 fi
 
