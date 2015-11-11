@@ -2,6 +2,8 @@
 
 set -o errexit
 
+KOMOREBI_VERSION=0.1.0
+
 COMMAND="${COMMAND:-date}"
 PORT=${PORT:-1500}
 HTTP_START="HTTP/1.1"
