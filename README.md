@@ -16,6 +16,15 @@ Komorebi supports arbitrary commands and "translates" the exit code of that comm
 1.  200 OK
 2.  500 Internal Error
 
+## Requirements
+Komorebi has only one requirement: that `nc` is available somewhere in your $PATH.  You can install it with:
+
+```
+apt-get install netcat-openbsd
+```
+
+If `netcat-openbsd` isn't installed, Komorebi will automatically try to install it if it can find `apt-get`.
+
 ## Usage
 
 Here's one way of using Komorebi:
