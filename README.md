@@ -30,9 +30,24 @@ If `netcat-openbsd` isn't installed, Komorebi will automatically try to install 
 Here's one way of using Komorebi:
 
 ```
-$ COMMAND='curl -s localhost:9200/health-check | grep -q GOOD' PORT=3000 ./server.sh
+$ COMMAND='curl -s localhost:9200/health-check | grep -q GOOD' PORT=3000 ./komorebi
 Starting Komorebi HTTP server on port 3000
 Command: 'curl -s localhost:9200/health-check | grep -q GOOD'
 ```
 
 Komorebi will return 200 if the body of the health check on port 9200 has the word "GOOD" in it.  Otherwise it will return a 500.
+
+If you don't have `git`, you can just:
+
+```
+$ curl 'https://raw.githubusercontent.com/heepster/komorebi/master/komorebi' | COMMAND='<command>' PORT='<port>' bash
+```
+
+## Defaults
+
+Here are the default values Komorebi will use if you don't specify:
+
+```
+COMMAND: 'date'
+PORT: 1500
+```
