@@ -11,7 +11,7 @@ Thus, Service B considers Service A as "healthy" even if A's health check HTTP b
 { "status": "Completely Dead" }
 ```
 
-Komorebi supports arbitrary commands and "translates" the exit code of that command into two HTTP responses:
+Komorebi can help here because it supports arbitrary commands and translates the exit code into one of two HTTP responses:
 
 1.  200 OK
 2.  500 Internal Error
