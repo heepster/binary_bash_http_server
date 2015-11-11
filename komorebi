@@ -18,7 +18,7 @@ fi
 
 trap "exit" INT
 
-echo "Starting HTTP server on port ${PORT}"
+echo "Starting Komorebi HTTP server on port ${PORT}"
 echo "Command: '${COMMAND}'"
 
 while true; do
