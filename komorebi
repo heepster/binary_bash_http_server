@@ -30,9 +30,9 @@ echo "Command: '${COMMAND}'"
 
 while true; do
     if eval $COMMAND &>/dev/null; then 
-        RESP="${HTTP_START} ${HTTP_GOOD}\n\n $(date)"
+        RESP="${HTTP_START} ${HTTP_GOOD}\r\n $(date)"
     else
-        RESP="${HTTP_START} ${HTTP_BAD}\n\n $(date)"
+        RESP="${HTTP_START} ${HTTP_BAD}\r\n $(date)"
     fi
     echo -e "${RESP}" | nc -l "${PORT}"
 done
