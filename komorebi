@@ -15,7 +15,7 @@ echo "Initializing Komorebi..."
 
 if which apt-get &>/dev/null; then
     if ! dpkg -s $NETCAT_PACKAGE &>/dev/null; then
-        echo "Could not find the 'netcat' utility; trying to install"
+        echo "Could not find '$NETCAT_PACKAGE'; trying to install"
         echo "First, updating apt repositories"
         apt-get update &>/dev/null
         echo "Now, installing '$NETCAT_PACKAGE'"
