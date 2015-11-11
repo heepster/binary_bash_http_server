@@ -14,7 +14,7 @@ NETCAT_PACKAGE='netcat-openbsd'
 if which apt-get &>/dev/null; then
     if ! dpkg -s $NETCAT_PACKAGE &>/dev/null; then
         echo "Installing '$NETCAT_PACKAGE'"
-        sudo apt-get -y install $NETCAT_PACKAGE
+        apt-get -y install $NETCAT_PACKAGE
     fi
 fi
 

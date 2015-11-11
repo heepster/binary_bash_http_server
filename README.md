@@ -23,7 +23,7 @@ Komorebi has only one requirement: that `nc` is available somewhere in your $PAT
 apt-get install netcat-openbsd
 ```
 
-If `netcat-openbsd` isn't installed, Komorebi will automatically try to install it if it can find `apt-get`.  It assumes you are `root` (heh) or have `sudo` access.
+If `netcat-openbsd` isn't installed, Komorebi will automatically try to install it if it can find `apt-get`.  It assumes you are `root` (heh).
 
 ## Usage
 
