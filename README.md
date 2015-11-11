@@ -20,10 +20,12 @@ Komorebi supports arbitrary commands and "translates" the exit code of that comm
 Komorebi has only one requirement: that `nc` is available somewhere in your $PATH.  You can install it with:
 
 ```
-apt-get install netcat
+apt-get install netcat-openbsd
 ```
 
-If `netcat` isn't installed, Komorebi will automatically try to install it if it can find `apt-get`.  It assumes you are `root` (heh).
+The traditional netcat package doesn't seem to behave correctly, so make sure you get the openbsd version.
+
+If `netcat-openbsd` isn't installed, Komorebi will automatically try to install it if it can find `apt-get`.  It assumes you are `root` (Heh, sorry...).
 
 ## Usage
 
