@@ -34,5 +34,5 @@ while true; do
     else
         RESP="${HTTP_START} ${HTTP_BAD} \n\n "
     fi
-    echo -e "${RESP}" | nc -l -p "${PORT}"
+    echo -e "${RESP}" | nc -l "${PORT}"
 done
