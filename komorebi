@@ -2,7 +2,7 @@
 
 set -o errexit
 
-KOMOREBI_VERSION=0.1.1
+KOMOREBI_VERSION=0.1.2
 
 COMMAND="${COMMAND:-date}"
 PORT=${PORT:-1500}
