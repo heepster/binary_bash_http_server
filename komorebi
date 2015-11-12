@@ -19,11 +19,7 @@ CRLF="\r\n"
 # HTTP response code / message
 
 function getHTTPHeader() {
-  echo -e "HTTP/1.1 $1
-Date: $(date) 
-Connection: close
-Server: Komorebi $KOMOREBI_VERSION 
-Content-Type: text/html$CLRF$CLRF"
+  echo -e "HTTP/1.1 $1${CRLF}Date: $(date)${CRLF}Connection: close${CRLF}Server: Komorebi $KOMOREBI_VERSION${CRLF}Content-Type: text/html$CRLF$CRLF"
 }
 
 # @installNetcatIfNeeded
