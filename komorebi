@@ -2,7 +2,7 @@
 
 set -o errexit
 
-KOMOREBI_VERSION=0.1.0
+KOMOREBI_VERSION=0.1.1
 
 COMMAND="${COMMAND:-date}"
 PORT=${PORT:-1500}
@@ -10,29 +10,63 @@ HTTP_START="HTTP/1.1"
 HTTP_GOOD="200 OK"
 HTTP_BAD="500 Internal Error"
 NETCAT_PACKAGE='netcat-openbsd'
+CRLF="\r\n"
+
+# @getHTTPHeader
+#
+# This function writes the http header
+# It takes one argument, which should be the
+# HTTP response code / message
+
+function getHTTPHeader() {
+  echo -e "HTTP/1.1 $1
+Date: $(date) 
+Connection: close
+Server: Komorebi $KOMOREBI_VERSION 
+Content-Type: text/html$CLRF$CLRF"
+}
+
+# @installNetcatIfNeeded
+#
+# This function installs the netcat package if needed
+# It currently only works on Ubuntu systems
+# as it checks the availbility of 'apt-get'
+# It also assumes you are root or can run 'apt-get'
+# without sudo
+
+function installNetcatIfNeeded() {
+    if which apt-get &>/dev/null; then
+        if ! dpkg -s $NETCAT_PACKAGE &>/dev/null; then
+            echo "Could not find '$NETCAT_PACKAGE'; trying to install"
+            echo "First, updating apt repositories"
+            apt-get update &>/dev/null
+            echo "Now, installing '$NETCAT_PACKAGE'"
+            apt-get -y install $NETCAT_PACKAGE &>/dev/null
+        fi
+    fi
+}
+
+# @runServer
+#
+# Starts the server
+
+function runServer() {
+    trap "exit" INT
+    
+    echo "Starting Komorebi HTTP server on port ${PORT}"
+    echo "Command: '${COMMAND}'"
+    
+    while true; do
+        if eval $COMMAND &>/dev/null; then 
+            RESP=$(getHTTPHeader "$HTTP_GOOD" $(date))
+        else
+            RESP=$(getHTTPHeader "$HTTP_BAD" $(date))
+        fi
+        echo -e "${RESP}" | nc -l "${PORT}"
+    done
+}
 
 echo "Initializing Komorebi..."
+installNetcatIfNeeded
+runServer
 
-if which apt-get &>/dev/null; then
-    if ! dpkg -s $NETCAT_PACKAGE &>/dev/null; then
-        echo "Could not find '$NETCAT_PACKAGE'; trying to install"
-        echo "First, updating apt repositories"
-        apt-get update &>/dev/null
-        echo "Now, installing '$NETCAT_PACKAGE'"
-        apt-get -y install $NETCAT_PACKAGE &>/dev/null
-    fi
-fi
-
-trap "exit" INT
-
-echo "Starting Komorebi HTTP server on port ${PORT}"
-echo "Command: '${COMMAND}'"
-
-while true; do
-    if eval $COMMAND &>/dev/null; then 
-        RESP="${HTTP_START} ${HTTP_GOOD}\r\n $(date)"
-    else
-        RESP="${HTTP_START} ${HTTP_BAD}\r\n $(date)"
-    fi
-    echo -e "${RESP}" | nc -l "${PORT}"
-done
